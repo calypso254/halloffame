@@ -1,959 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <base href="https://pengems.com/">
-
-  <title>PenGems Hall of Fame - Archived Pen Collection</title>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f4">
+  <meta name="description" content="Browse the PenGems Hall of Fame archive, a collector-friendly catalog of retired PenGems crystal pens.">
+  <title>PenGems Hall of Fame - Retired Crystal Pen Archive</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Ms+Madi&display=swap" rel="stylesheet">
-
-  <style>
-/* Base styles */
-html {
-  font-size: 16px;
-}
-
-body {
-  font-family: 'Lato', sans-serif;
-  background-color: #fff;
-  font-weight: 400;
-  color: #000;
-  margin: 0;
-  padding: 0;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-/* Typography */
-h1 {
-  font-family: "Ms Madi", sans-serif;
-  letter-spacing: 0px;
-  font-size: 2rem;
-  text-transform: none;
-  margin: 0px;
-  font-weight: 700;
-  font-style: normal;
-}
-
-h2, h3 {
-  font-family: 'Josefin Sans', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: bold;
-}
-
-/* Layout */
-.page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.content-wrapper {
-  max-width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-.main-content {
-  flex: 1;
-  padding: 3em;
-}
-
-/* Header and Navigation */
-header {
-  background-color: #000;
-  color: #fff;
-  text-align: center;
-  padding: 1em;
-  border-bottom: 1px solid #000;
-  width: 100%;
-  position: relative;
-}
-
-.main-nav__wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.main-nav {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.header__logo {
-  flex: 0 1 auto;
-  text-align: center;
-}
-
-.header__logo img {
-  max-width: 205px;
-  height: auto;
-}
-
-.nav-desktop {
-  flex-grow: 1;
-  text-align: right;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.nav-desktop ul {
-  list-style: none;
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-desktop ul li {
-  margin-left: 20px;
-}
-
-.nav-desktop ul li a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 0.875rem;
-}
-
-nav {
-  margin-top: 1em;
-}
-
-nav a {
-  color: #000;
-  text-decoration: none;
-  margin: 0 1em;
-  padding: 0.5em;
-  font-family: 'Josefin Sans', sans-serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: #00c5cd;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 15%;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 1em;
-}
-
-.filter-section {
-  margin-bottom: 20px;
-}
-
-.filter-section h3 {
-  margin-top: 0.5em;
-  font-size: 1rem;
-}
-
-.filter-options {
-  display: flex;
-  flex-direction: column;
-}
-
-.filter-option {
-  margin-bottom: 0.5em;
-}
-
-/* Search Bar */
-.search-bar {
-  margin-bottom: 1em;
-  display: flex;
-  flex-direction: column;
-}
-
-.search-bar input {
-  padding: 0.5em;
-  width: 100%;
-  border: 1px solid #000;
-  border-radius: 3px;
-  box-sizing: border-box;
-  margin-bottom: 20px;
-  font-family: 'Lato', sans-serif;
-}
-
-/* Sort Options */
-.sort-options {
-  margin-bottom: 1em;
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 10px;
-}
-
-.sort-options select {
-  padding: 0.5em;
-  border: none;
-  box-sizing: border-box;
-  font-family: 'Josefin Sans', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: bold;
-  background-color: #fff;
-  font-size: 0.75rem;
-  padding-right: 30px;
-}
-
-/* Section Select */
-.section_select .sort_by {
-  color: #000000;
-  display: inline-block;
-  border: none;
-  background-position: 100% 50%;
-  background-color: #ffffff; 
-  font-family: "Josefin Sans", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  width: auto;
-  margin-bottom: 0;
-  max-width: 80%;
-}
-
-select.sort_by {
-  background: #fff url('data:image/svg+xml,%3Csvg width="50" height="27" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M25 27.05 0 1.319 1.367 0 25 24.316 48.633 0 50 1.318z" fill="%23000" fill-rule="nonzero"/%3E%3C/svg%3E') no-repeat 95% 50%;
-  background-size: 0.85rem;
-  border: 1px solid #d9dbdc;
-  -webkit-appearance: none;
-  appearance: none;
-  text-indent: 0.01px;
-  text-overflow: "";
-}
-
-/* Gallery */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1em;
-  width: 100%;
-}
-
-.pen-card {
-  background-color: white;
-  overflow: hidden;
-  box-shadow: -3px 3px rgb(0, 0, 0, 0.22);
-  border: 1px solid #ececec;
-  transition: transform 0.3s ease;
-  border-radius: 3px;
-  display: flex;
-  flex-direction: column;
-}
-
-.pen-image-container {
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.pen-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pen-info {
-  padding: 1em;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.pen-name {
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  font-size: 0.75rem;
-  font-family: 'Josefin Sans', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.pen-date {
-  font-size: 0.8em;
-}
-
-/* Buttons */
-button {
-  border: 1px solid black;
-  background: white;
-  border-radius: 3px;
-  font-size: .875rem;
-  margin: 10px 0px;
-  padding: 8px;
-  font-family: 'Josefin Sans', sans-serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-button:hover {
-  background: black;
-  color: white;
-}
-
-#export-csv {
-  width: 100%;
-}
-
-.info-button {
-  display: block;
-  width: 80%;
-  padding: 0.5em;
-  background-color: #fff;
-  color: #000;
-  text-align: center;
-  text-decoration: none;
-  border: 1px solid #000;
-  border-radius: 4px;
-  margin: 1em auto 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 0.8em;
-}
-
-.info-button:hover {
-  background-color: #d6dcde;
-}
-
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 10px;
-  margin-top: 2em;
-}
-
-.pagination button {
-  margin: 0.25em;
-  padding: 0.5em 1em;
-  background-color: #fff;
-  border: 1px solid #000;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.pagination button:hover:not(:disabled) {
-  background-color: #d6dcde;
-}
-
-.pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.page-link {
-  min-width: 30px;
-}
-
-.page-link.current-page {
-  background-color: #000;
-  color: #fff;
-}
-
-/* Footer */
-footer {
-  background-color: #d6dcde;
-  color: #000;
-  text-align: center;
-  padding: 1em;
-  margin-top: 2em;
-  border-top: 1px solid #000;
-  width: 100%;
-}
-
-.content-wrapper, footer {
-  clear: both;
-}
-
-/* Lightbox */
-.lightbox {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  align-items: center;
-  justify-content: center;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-}
-
-/* Hamburger Menu Styles */
-.hamburger-menu {
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  left: 10px;
-  top: 20px;
-}
-
-.hamburger-menu div {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  margin: 5px 0;
-  z-index: 999;
-}
-
-.mobile-nav-links {
-  display: none;
-}
-
-.close-btn {
-  display: none;
-}
-
-/* Media Queries */
-@media (max-width: 798px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  .content-wrapper {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    padding: 30px 20px;
-    overflow-y: auto;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-    border: 1px solid black;
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .close-btn {
-    display: block;
-    cursor: pointer;
-    font-size: 1.5em;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
-  .mobile-nav-links {
-    margin-bottom: 20px;
-  }
-
-  .mobile-nav-links a {
-    display: block;
-    padding: 0.5em 0em;
-    color: #000;
-    text-decoration: none;
-    font-family: 'Josefin Sans', sans-serif;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-
-  .mobile-nav-links a:hover {
-    color: #00c5cd;
-  }
-
-  .sidebar .search-bar,
-  .sidebar .filter-section,
-  .sidebar #content {
-    margin-bottom: 1em;
-    margin-top: 1em;
-  }
-
-  .sidebar button {
-    width: 100%;
-  }
-
-  .main-content {
-    flex: 1;
-    padding: 1em;
-  }
-
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1em;
-  }
-
-  .main-nav__wrapper {
-    justify-content: center;
-  }
-
-  .nav-desktop {
-    display: none;
-  }
-
-  .hamburger-menu {
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 10px;
-  }
-
-  .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 999;
-  }
-
-  .overlay.show {
-    display: block;
-  }
-}
-
-@media (max-width: 480px) {
-  .pagination button {
-    padding: 0.5em 0.5em;
-    font-size: 0.875em;
-  }
-  .page-link {
-    padding: 5px 8px;
-  }
-}
-
-/* Additional Styles */
-.title {
-  margin: 0 auto;
-  padding: 0 20px;
-  max-width: 1200px;
-  text-align: center;
-}
-
-#content p {
-  margin-bottom: 1em;
-  display: block;
-}
-
-  </style>
+  <link rel="preconnect" href="https://cdn.shopify.com">
+  <link rel="preconnect" href="https://www.pengems.com">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Jost:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="https://www.pengems.com/cdn/shop/files/favi.png?v=1775077631&width=180">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="full-width">
-    <div class="hamburger-menu" id="hamburger-menu">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="main-nav__wrapper">
-      <div class="header__logo logo--image">
-        <a href="/" title="PENGEMS">
-          <img src="//www.pengems.com/cdn/shop/files/PENGEMS_Website_Logo_400_x_100_-_White_2d17e2ee-3d8b-4448-a2a6-92690541991f.png?v=1678406172" alt="PENGEMS">
-        </a>
-      </div>
-      <nav class="nav-desktop">
-        <ul>
-          <li><a href="https://www.pengems.com">Shop</a></li>
-          <li><a href="https://www.pengems.com/pages/contact-us">Contact</a></li>
-          <li><a href="https://www.pengems.com/account">My Account</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div class="page-container">
-    <div><h1 class="title">Hall of Fame</h1></div>
-  <div class="content-wrapper">
-    <div class="overlay" id="overlay"></div>
+  <a class="skip-link" href="#archive">Skip to archive</a>
 
-    <aside class="sidebar" id="sidebar">
-      <span class="close-btn" id="close-btn">&times;</span>
-      <div class="mobile-nav-links">
-        <a href="https://www.pengems.com">Shop</a>
+  <header class="site-header">
+    <div class="utility-bar">Retired PenGems crystal pens, gathered for collectors.</div>
+    <div class="header-inner">
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="brand-logo" href="https://www.pengems.com/" aria-label="PenGems home">
+        <img src="https://www.pengems.com/cdn/shop/files/PENGEMS_Website_Logo_400_x_100_Black_fd572cfb-1f07-4d0e-90ef-032eba1f0dca.png?width=410" alt="PENGEMS">
+      </a>
+      <nav class="desktop-nav" aria-label="Primary">
+        <a href="https://www.pengems.com/">Shop</a>
         <a href="https://www.pengems.com/pages/contact-us">Contact</a>
         <a href="https://www.pengems.com/account">My Account</a>
-      </div>
-      <form id="search-form" method="GET">
-        <div class="search-bar">
-          <input type="text" id="search-input" placeholder="Search pens...">
+      </nav>
+    </div>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile primary">
+      <a href="https://www.pengems.com/">Shop</a>
+      <a href="https://www.pengems.com/pages/contact-us">Contact</a>
+      <a href="https://www.pengems.com/account">My Account</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Collector Archive</p>
+        <h1>PenGems Hall of Fame</h1>
+        <p class="hero-copy">A retired collection of past PenGems releases, preserved for collectors who want to find a name, a date, or a little sparkle from the archive.</p>
+        <div class="archive-stats" aria-live="polite">
+          <span><strong id="stat-count">...</strong> pens</span>
+          <span><strong id="stat-years">...</strong></span>
         </div>
-      </form>
-      <form id="filter-form" method="GET">
-        <div class="filter-section">
-          <h3>Year</h3>
-          <div class="filter-options">
-                        <label class="filter-option">
-              <input type="checkbox" name="year" value="2025"> 2025
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2024"> 2024
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2023"> 2023
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2022" checked=""> 2022
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2021"> 2021
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2020"> 2020
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2019"> 2019
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2018"> 2018
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2017"> 2017
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2016"> 2016
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2015"> 2015
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="year" value="2014"> 2014
-            </label>
-            <button type="button" id="uncheck-all">Clear All</button>
+      </div>
+    </section>
+
+    <section class="archive-shell" id="archive">
+      <div class="archive-heading">
+        <div>
+          <p class="eyebrow">Browse The Archive</p>
+          <h2>Retired Pens</h2>
+        </div>
+        <button class="filter-toggle" type="button" aria-controls="filters" aria-expanded="false">Filters</button>
+      </div>
+
+      <aside class="storage-note" aria-label="Collection tracking note">
+        <strong>Collection tracking is saved on this browser.</strong>
+        Your Have and Want selections stay on this device for now. If you clear cookies or site data, use another browser, or switch devices, those selections will not be there.
+      </aside>
+
+      <div class="archive-layout">
+        <aside class="filters-panel" id="filters">
+          <div class="filters-header">
+            <h3>Refine</h3>
+            <button class="filters-close" type="button" aria-label="Close filters">Close</button>
           </div>
-        </div>
-      </form>
-      <div id="content">
-        <p>Download the latest update with names and release dates as a CSV.</p>
-        <p>Note: it's a work in progress, so some pens might be missing. If you spot a gap, give us a shout!</p>
-        <button id="export-csv" type="button">Download</button>
-        <button onclick="window.location.href='https://www.pengems.com';">Shop at PenGems</button>
-<button onclick="window.location.href='https://www.facebook.com/groups/pengemsbst/';">Go to the Facebook BST</button>
 
+          <label class="field-label" for="search-input">Search pens</label>
+          <input class="text-field" type="search" id="search-input" placeholder="Search by name">
+
+          <div class="filter-section">
+            <div class="filter-title-row">
+              <h3>Year</h3>
+              <button class="text-button" type="button" id="clear-years">Clear</button>
+            </div>
+            <div class="year-options" id="year-options"></div>
+          </div>
+
+          <div class="download-panel">
+            <p>Download the latest names and release dates as a CSV.</p>
+            <button class="button button-primary" id="export-csv" type="button">Download CSV</button>
+          </div>
+        </aside>
+
+        <section class="archive-results" aria-live="polite">
+          <div class="toolbar">
+            <p class="result-count" id="result-count">Loading pens...</p>
+            <label class="sort-label" for="sort-by">
+              <span>Sort</span>
+              <select class="select-field" id="sort-by">
+                <option value="newest" selected>Date, New to Old</option>
+                <option value="oldest">Date, Old to New</option>
+                <option value="nameAZ">Alphabetically, A-Z</option>
+                <option value="nameZA">Alphabetically, Z-A</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="status-message" id="status-message">Loading the archive...</div>
+          <div class="gallery" id="gallery"></div>
+
+          <nav class="pagination" aria-label="Archive pagination">
+            <button class="button button-secondary" id="prev-page" type="button" disabled>Back</button>
+            <div class="page-links" id="page-info"></div>
+            <button class="button button-secondary" id="next-page" type="button" disabled>Next</button>
+          </nav>
+        </section>
       </div>
+    </section>
+  </main>
 
-    </aside>
-    <main class="main-content">
-<div class="sort-options">
-  <select class="sort_by" id="sort-by" data-sort-by="">
-    <option value="nameAZ" selected>Alphabetically, A-Z</option>
-    <option value="nameZA">Alphabetically, Z-A</option>
-    <option value="oldest">Date, Old to New</option>
-    <option value="newest">Date, New to Old</option>
-  </select>
-</div>
-      <div class="gallery">
-
-      </div>
-      <div class="pagination">
-        <button id="prev-page" disabled>Back</button>
-        <span id="page-info">Page 1 of 1</span>
-        <button id="next-page" disabled>Next</button>
-      </div>
-    </main>
-
+  <div class="overlay" id="overlay" hidden></div>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded pen image" hidden>
+    <button class="lightbox-close" type="button" aria-label="Close image">Close</button>
+    <img id="lightbox-img" src="" alt="">
   </div>
-          <div class="lightbox" id="lightbox">
-    <img id="lightbox-img" src="" alt="Expanded Pen Image">
-  </div>
 
-  </div>
-      <footer>
-      <p id="copyright-year">&copy; 2024 PenGems Hall of Fame Archive. All rights reserved.</p>
-    </footer>
-  <script>
-   document.addEventListener('DOMContentLoaded', function() {
-  const API_KEY = 'AIzaSyCRa06VlXi7I3YQjhwoGEyie5FWCxp88ik';
-  const SHEET_ID = '1ODiDNe9V6n56ipXfhEawY_QKi7aY6HwIzw1wuLyO-kE';
-  const RANGE = 'A1:AX1000';
+  <footer class="site-footer">
+    <a class="footer-logo" href="https://www.pengems.com/" aria-label="PenGems home">
+      <img src="https://www.pengems.com/cdn/shop/files/PENGEMS_Website_Logo_400_x_100_white_19103709-93b0-4e9a-a647-383596f2b758.png?width=300" alt="PENGEMS">
+    </a>
+    <nav aria-label="Footer">
+      <a href="https://www.pengems.com/">Shop</a>
+      <a href="https://www.pengems.com/pages/contact-us">Contact</a>
+      <a href="https://www.pengems.com/account">My Account</a>
+    </nav>
+    <p id="copyright-year"></p>
+  </footer>
 
-  let currentPage = 1;
-  const pensPerPage = 36;
-  let allPens = [];
-  let displayedPens = [];
-  let currentSort = 'newest';
-  let totalPages = 0; // Define totalPages at a higher scope
-  const searchInput = document.getElementById('search-input');
-  const yearCheckboxes = document.querySelectorAll('input[name="year"]');
-  yearCheckboxes.forEach(checkbox => checkbox.checked = true);
-  document.getElementById('uncheck-all').addEventListener('click', function() {
-    yearCheckboxes.forEach(checkbox => checkbox.checked = false);
-    applyFilters();
-  });
-
-  function fetchPenData() {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (!data.values) {
-          throw new Error('Data format is incorrect or data is missing.');
-        }
-        const rows = data.values;
-        allPens = rows.slice(1).map(row => ({
-          name: row[1],
-          image: row[12],
-          date: row[47],
-          year: new Date(row[47]).getFullYear(),
-          color: row[49],
-          collection: row[50],
-          formattedDate: formatDate(row[47])
-        }));
-        applyFilters();
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        alert('Failed to fetch data: ' + error.message);
-      });
-  }
-
-  function applyFilters() {
-    const selectedYear = Array.from(yearCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-    const searchTerm = searchInput.value.toLowerCase();
-    displayedPens = allPens.filter(pen => (selectedYear.length === 0 || selectedYear.includes(pen.year.toString())) && (searchTerm === "" || pen.name.toLowerCase().includes(searchTerm)));
-    sortPens(currentSort);
-    displayPage(1);
-  }
-
-  function displayPage(page) {
-    const startIndex = (page - 1) * pensPerPage;
-    const endIndex = startIndex + pensPerPage;
-    updateDisplay(displayedPens.slice(startIndex, endIndex));
-    updatePaginationControls();
-  }
-
-  function updateDisplay(pens) {
-    const gallery = document.querySelector('.gallery');
-    gallery.innerHTML = pens.map(pen => `
-      <div class="pen-card">
-        <div class="pen-image-container">
-          <img src="${pen.image}" alt="${pen.name} Pen" class="pen-image" width="200" height="200">
-        </div>
-        <div class="pen-info">
-          <div class="pen-name">${pen.name}</div>
-          <div class="pen-date">${pen.formattedDate}</div>
-        </div>
-      </div>
-    `).join('');
-    // Add event listeners to pen images for lightbox functionality
-    document.querySelectorAll('.pen-image').forEach(image => {
-      image.addEventListener('click', function() {
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        lightbox.style.display = 'flex';
-        lightboxImg.src = this.src;
-      });
-    });
-  }
-
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) { // Check if date is invalid
-      return "Date Unavailable";
-    }
-    const options = {
-      year: 'numeric',
-      month: 'long'
-    };
-    return new Date(dateString).toLocaleDateString('en-US', options);
-  }
-
-function updatePaginationControls() {
-  totalPages = Math.ceil(displayedPens.length / pensPerPage);
-  const pageInfo = document.getElementById('page-info');
-  pageInfo.innerHTML = '';
-
-  // Adjust maxVisiblePages based on screen width
-  const screenWidth = window.innerWidth;
-  let maxVisiblePages = 5;
-  if (screenWidth < 500) {
-    maxVisiblePages = 3;  // Fewer pages for very small screens
-  } else if (screenWidth < 800) {
-    maxVisiblePages = 4;  // Slightly more for medium screens
-  }
-
-  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-  if (endPage - startPage + 1 < maxVisiblePages) {
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
-  }
-
-  function addPageButton(pageNum, text) {
-    const pageLink = document.createElement('button');
-    pageLink.textContent = text || pageNum;
-    pageLink.className = 'page-link';
-    if (pageNum === currentPage) {
-      pageLink.classList.add('current-page');
-    } else {
-      pageLink.addEventListener('click', function() {
-        currentPage = pageNum;
-        displayPage(currentPage);
-      });
-    }
-    pageInfo.appendChild(pageLink);
-  }
-
-  if (startPage > 1) {
-    addPageButton(1);
-    if (startPage > 2) addPageButton(startPage - 1, '...');
-  }
-
-  for (let i = startPage; i <= endPage; i++) {
-    addPageButton(i);
-  }
-
-  if (endPage < totalPages) {
-    if (endPage < totalPages - 1) addPageButton(endPage + 1, '...');
-    addPageButton(totalPages);
-  }
-
-  const prevButton = document.getElementById('prev-page');
-  const nextButton = document.getElementById('next-page');
-  prevButton.disabled = currentPage === 1;
-  nextButton.disabled = currentPage >= totalPages;
-}
-
-  document.getElementById('next-page').addEventListener('click', function() {
-    if (currentPage < totalPages) {
-      currentPage++;
-      displayPage(currentPage);
-    }
-  });
-  document.getElementById('prev-page').addEventListener('click', function() {
-    if (currentPage > 1) {
-      currentPage--;
-      displayPage(currentPage);
-    }
-  });
-  searchInput.addEventListener('input', applyFilters);
-  document.getElementById('filter-form').addEventListener('change', applyFilters);
-  document.getElementById('sort-by').addEventListener('change', function() {
-    currentSort = this.value;
-    sortPens(currentSort);
-  });
-
-  function sortPens(option) {
-    switch (option) {
-      case 'newest':
-        displayedPens.sort((a, b) => new Date(b.date) - new Date(a.date));
-        break;
-      case 'oldest':
-        displayedPens.sort((a, b) => new Date(a.date) - new Date(b.date));
-        break;
-      case 'nameAZ':
-        displayedPens.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'nameZA':
-        displayedPens.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-    }
-    displayPage(1);
-  }
-  fetchPenData();
-  // Update the year dynamically in the footer
-  const currentYear = new Date().getFullYear();
-  const copyrightElement = document.getElementById('copyright-year');
-  if (copyrightElement) {
-    copyrightElement.textContent = `© ${currentYear} PenGems Hall of Fame Archive. All rights reserved.`;
-  }
-
-  function downloadCSV() {
-    const date = new Date();
-    // Formatting date as 'Jul-09-2024'
-    const formattedDate = date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit'
-    }).replace(/,|\//g, '').replace(/ /g, '-');  // Remove commas, replace spaces with dashes
-
-    let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += "Pen Name,Release Date\n"; // Header row
-    allPens.forEach(pen => {
-      let row = `${pen.name},${pen.formattedDate}`;
-      csvContent += row + "\n";
-    });
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `PenGems Hall of Fame (${formattedDate}).csv`);
-    document.body.appendChild(link); // Required for Firefox
-    link.click(); // This will download the data file with the current date in the name.
-  }
-
-  document.getElementById('export-csv').addEventListener('click', downloadCSV);
-
-  // Hamburger menu toggle
-  const hamburgerMenu = document.getElementById('hamburger-menu');
-  const sidebar = document.getElementById('sidebar');
-  const closeBtn = document.getElementById('close-btn');
-  const overlay = document.getElementById('overlay');
-
-  hamburgerMenu.addEventListener('click', function () {
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('show');
-  });
-
-  closeBtn.addEventListener('click', function () {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('show');
-  });
-
-  overlay.addEventListener('click', function () {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('show');
-  });
-
-  // Lightbox functionality
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-
-  document.querySelectorAll('.pen-image').forEach(image => {
-    image.addEventListener('click', function() {
-      lightbox.style.display = 'flex';
-      lightboxImg.src = this.src;
-    });
-  });
-
-  lightbox.addEventListener('click', function() {
-    lightbox.style.display = 'none';
-  });
-});
-
-  </script>
+  <script src="script.js"></script>
 </body>
-  
-<!--Gorgias Chat Widget Start-->
-<script id="gorgias-chat-widget-install-v3" 
-    src="https://config.gorgias.chat/bundle-loader/01GYCBQVT22JS1YNZ2MFRY97P9">
-</script>
-<!--Gorgias Chat Widget End-->
-  
 </html>
