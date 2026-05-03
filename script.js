@@ -1,7 +1,6 @@
 (function () {
   const DATA_URL = "data/pens.json";
   const PENS_PER_PAGE = 36;
-  const STORAGE_KEY = "pengemsHallOfFameCollection";
 
   const state = {
     allPens: [],
@@ -10,10 +9,6 @@
     currentSort: "newest",
     currentPage: 1,
     totalPages: 0,
-    collection: {
-      have: new Set(),
-      want: new Set(),
-    },
   };
 
   const elements = {
@@ -45,7 +40,6 @@
   document.addEventListener("DOMContentLoaded", init);
 
   function init() {
-    loadCollection();
     bindEvents();
     setCopyright();
     fetchPenData();
@@ -82,11 +76,6 @@
       if (event.target === elements.lightbox) closeLightbox();
     });
     elements.lightboxClose.addEventListener("click", closeLightbox);
-    elements.gallery.addEventListener("click", function (event) {
-      const button = event.target.closest("[data-track]");
-      if (!button) return;
-      toggleTrackedPen(button.dataset.track, button.dataset.id);
-    });
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") {
         closeFilters();
@@ -238,9 +227,6 @@
   }
 
   function renderPenCard(pen) {
-    const hasPen = state.collection.have.has(pen.id);
-    const wantsPen = state.collection.want.has(pen.id);
-
     return `
       <article class="pen-card">
         <button class="pen-image-button" type="button" data-image="${escapeHtml(pen.image)}" data-name="${escapeHtml(pen.name)}">
@@ -251,53 +237,9 @@
         <div class="pen-info">
           <h3 class="pen-name">${escapeHtml(pen.name)}</h3>
           <p class="pen-date">${escapeHtml(pen.formattedDate)}</p>
-          <div class="tracking-actions" aria-label="${escapeHtml(pen.name)} tracking">
-            <button class="track-button${hasPen ? " is-active" : ""}" type="button" data-track="have" data-id="${escapeHtml(pen.id)}" aria-pressed="${hasPen}">Have</button>
-            <button class="track-button${wantsPen ? " is-active" : ""}" type="button" data-track="want" data-id="${escapeHtml(pen.id)}" aria-pressed="${wantsPen}">Want</button>
-          </div>
         </div>
       </article>
     `;
-  }
-
-  function toggleTrackedPen(type, id) {
-    if (!state.collection[type] || !id) return;
-
-    if (state.collection[type].has(id)) {
-      state.collection[type].delete(id);
-    } else {
-      state.collection[type].add(id);
-    }
-
-    saveCollection();
-    updateTrackingButtons(id);
-  }
-
-  function updateTrackingButtons(id) {
-    elements.gallery.querySelectorAll(`[data-id="${cssEscape(id)}"]`).forEach(function (button) {
-      const type = button.dataset.track;
-      const isActive = state.collection[type].has(id);
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", String(isActive));
-    });
-  }
-
-  function loadCollection() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-      state.collection.have = new Set(Array.isArray(saved.have) ? saved.have : []);
-      state.collection.want = new Set(Array.isArray(saved.want) ? saved.want : []);
-    } catch {
-      state.collection.have = new Set();
-      state.collection.want = new Set();
-    }
-  }
-
-  function saveCollection() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      have: Array.from(state.collection.have),
-      want: Array.from(state.collection.want),
-    }));
   }
 
   function updateResultCount() {
@@ -359,22 +301,13 @@
       month: "short",
       day: "2-digit",
     }).replace(/,|\//g, "").replace(/ /g, "-");
-
-    const rows = [["Pen Name", "Release Date"]].concat(state.allPens.map(function (pen) {
-      return [pen.name, pen.formattedDate];
-    }));
-    const csv = rows.map(function (row) {
-      return row.map(csvEscape).join(",");
-    }).join("\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
 
-    link.href = URL.createObjectURL(blob);
+    link.href = "data/pengems-hall-of-fame.csv";
     link.download = `PenGems Hall of Fame (${formattedDate}).csv`;
     document.body.appendChild(link);
     link.click();
     link.remove();
-    URL.revokeObjectURL(link.href);
   }
 
   function toggleMobileMenu() {
@@ -452,16 +385,4 @@
     });
   }
 
-  function csvEscape(value) {
-    const text = String(value || "");
-    return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
-  }
-
-  function cssEscape(value) {
-    if (window.CSS && typeof window.CSS.escape === "function") {
-      return window.CSS.escape(value);
-    }
-
-    return String(value).replace(/"/g, '\\"');
-  }
 })();
