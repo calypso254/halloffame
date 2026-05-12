@@ -2,18 +2,37 @@ import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const ROOT = process.cwd();
-const SOURCE_CSV = path.join(ROOT, "ProductExport-1777755110.csv");
+const SOURCE_CSV = path.join(ROOT, "Hall of Fame Update.csv");
 const DATA_DIR = path.join(ROOT, "data");
 const IMAGE_DIR = path.join(ROOT, "assets", "pens");
 const JSON_OUTPUT = path.join(DATA_DIR, "pens.json");
 const CSV_OUTPUT = path.join(DATA_DIR, "pengems-hall-of-fame.csv");
 const PLACEHOLDER_NAME = "photo-unavailable.jpg";
+const LAUNCH_DATE_COLUMNS = [
+  "Product.custom.launch",
+  "product.custom.launch",
+  "custom.launch",
+  "Custom Launch",
+  "Launch",
+  "Metafield: custom.launch",
+  "Metafield custom.launch",
+  "Product Metafield: custom.launch",
+];
 
 await mkdir(DATA_DIR, { recursive: true });
 await mkdir(IMAGE_DIR, { recursive: true });
 
 const csv = await readFile(SOURCE_CSV, "utf8");
 const rows = parseCsv(csv);
+const launchDateColumn = findColumn(rows, LAUNCH_DATE_COLUMNS);
+
+if (!launchDateColumn) {
+  throw new Error(
+    `Missing launch date column. Expected one of: ${LAUNCH_DATE_COLUMNS.join(", ")}. ` +
+      `Export the custom.launch metafield in ${path.basename(SOURCE_CSV)} before rebuilding.`,
+  );
+}
+
 const products = new Map();
 const downloadedImages = new Map();
 const usedIds = new Set();
@@ -34,6 +53,7 @@ for (const row of rows) {
     collectionTitles: splitList(row["Collection Titles"]),
     tags,
     description: normalizeText(row["Product Description (Plain Text)"]),
+    launchDate: clean(row[launchDateColumn]),
     createdAt: clean(row["Product Created At"]),
     publishedAt: clean(row["Product Published At"]),
     sourceImages: cleanImages(row["Product Image"]),
@@ -63,7 +83,7 @@ const pens = [];
 for (const product of products.values()) {
   const baseId = slugify(product.handle || product.name);
   const id = uniqueId(baseId, usedIds);
-  const releaseDate = normalizeDate(product.createdAt);
+  const releaseDate = normalizeDate(product.launchDate);
   const gallery = [];
 
   for (const [index, sourceImage] of product.sourceImages.entries()) {
@@ -99,6 +119,7 @@ for (const product of products.values()) {
       productId: product.productId,
       type: product.type,
       category: product.category,
+      launchDate: product.launchDate,
       createdAt: product.createdAt,
       publishedAt: product.publishedAt,
     },
@@ -190,6 +211,13 @@ function buildCustomerCsv(pens) {
   }
 
   return `${rows.map((row) => row.map(csvEscape).join(",")).join("\n")}\n`;
+}
+
+function findColumn(rows, candidates) {
+  const headers = Object.keys(rows[0] || {});
+  const normalizedCandidates = new Set(candidates.map(normalizeColumnName));
+
+  return headers.find((header) => normalizedCandidates.has(normalizeColumnName(header))) || "";
 }
 
 function parseCsv(input) {
@@ -332,6 +360,10 @@ function normalizeText(value) {
     .replace(/([.!?,])([A-Z])/g, "$1 $2")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizeColumnName(value) {
+  return clean(value).toLowerCase().replace(/\s+/g, " ");
 }
 
 function toNumber(value) {
